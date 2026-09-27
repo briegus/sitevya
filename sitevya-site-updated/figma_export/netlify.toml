@@ -1,0 +1,17 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Toutes les routes non trouvées (React Router côté client) retombent sur index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  # Les appels aux fonctions gardent leur vraie route, ils ne sont jamais redirigés vers index.html
+  conditions = { Role = ["*"] }
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
